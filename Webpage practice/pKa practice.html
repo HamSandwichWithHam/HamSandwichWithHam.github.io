@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h1>pKa Practice</h1>
+    <p>How would the pKa of <span id="first"></span> change if it was next to <span id="second"></span> in an enzyme
+        active site?</p>
+
+    <form>
+        <input type="button" id="increase" name="answer" value="Increase">
+        <label for="increase">The pKa will increase.</label> <br><br>
+        <input type="button" id="decrease" name="answer" value="Decrease">
+        <label for="decrease">The pKa will decrease.</label> <br><br>
+        <input type="button" id="no pKa" name="answer" value="No pKa">
+        <label for="no pKa">The side chain of this amino acid does not have a pKa between 1 and 14.</label> <br>
+    </form>
+
+    <p id="output"></p>
+
+    <!-- <p id="test"></p>
+ <p>Test if this is updating</p> -->
+
+    <script>
+        const aminoArrayPos = ['arginine', 'lysine', 'histidine'];
+        const aminoArrayNeg = ['aspartate', 'glutamate'];
+        const aminoArrayPhob = ['valine', 'leucine', 'isoleucine'];
+        const sumArray = [aminoArrayPos, aminoArrayNeg, aminoArrayPhob];
+        //Select first amino acid and insert into text
+        let randomArray = sumArray[Math.floor(Math.random() * sumArray.length)];
+        let randomAA1 = randomArray[Math.floor(Math.random() * randomArray.length)];
+        document.getElementById("first").innerHTML = randomAA1;
+        //Select second amino acid and insert into text
+        randomArray = sumArray[Math.floor(Math.random() * sumArray.length)];
+        let randomAA2 = randomArray[Math.floor(Math.random() * randomArray.length)];
+        document.getElementById("second").innerHTML = randomAA2;
+
+        //Get input from radio buttons
+        if (document.querySelectorAll('input[name="answer"]')) {
+            document.querySelectorAll('input[name="answer"]').forEach((elem) => {
+                elem.addEventListener("click", function (event) {
+                    let selection = event.target.value;
+                    //document.getElementById("output").innerHTML = selection;
+                    presentAnswer(selection);
+                });
+            });
+        }
+        function presentAnswer(selection) {
+            if (aminoArrayPos.indexOf(randomAA1) > -1) {
+                positive(selection);
+            }
+            else if (aminoArrayNeg.indexOf(randomAA1) > -1) {
+                negative(selection);
+            }
+            else {
+                phobic(selection);
+            }
+        }
+        function positive(selection) {
+            //ASSERT:  The first amino acid is positive
+            if (aminoArrayPos.indexOf(randomAA2) > -1) {
+                //ASSERT: The second amino acid is positive
+                if (selection === 'Decrease') {
+                    document.getElementById("output").innerHTML = "Correct";
+                }
+                else {
+                    document.getElementById("output").innerHTML = "Incorrect";
+                }
+
+            }
+            else if (aminoArrayNeg.indexOf(randomAA2) > -1) {
+                //ASSERT:  The second amino acid is negative
+                if (selection === 'Increase') {
+                    document.getElementById("output").innerHTML = "Correct";
+                }
+                else {
+                    document.getElementById("output").innerHTML = "Incorrect";
+                }
+            }
+            else {
+                //ASSERT:  The second amino acid is hydrophobic
+                if (selection === 'Decrease') {
+                    document.getElementById("output").innerHTML = "Correct";
+                }
+                else {
+                    document.getElementById("output").innerHTML = "Incorrect";
+                }
+            }
+
+        }
+        function negative(selection) {
+            //ASSERT:  The first amino acid is negative
+            if (aminoArrayPos.indexOf(randomAA2) > -1) {
+                //ASSERT: The second amino acid is positive
+                if (selection === 'Decrease') {
+                    document.getElementById("output").innerHTML = "Correct";
+                }
+                else {
+                    document.getElementById("output").innerHTML = "Incorrect";
+                }
+
+            }
+            else if (aminoArrayNeg.indexOf(randomAA2) > -1) {
+                //ASSERT:  The second amino acid is negative
+                if (selection === 'Increase') {
+                    document.getElementById("output").innerHTML = "Correct";
+                }
+                else {
+                    document.getElementById("output").innerHTML = "Incorrect";
+                }
+            }
+            else {
+                //ASSERT:  The second amino acid is hydrophobic
+                if (selection === 'Increase') {
+                    document.getElementById("output").innerHTML = "Correct";
+                }
+                else {
+                    document.getElementById("output").innerHTML = "Incorrect";
+                }
+            }
+
+        }
+        function phobic(selection) {
+            //ASSERT:  The first amino acid is hydrophobic
+            if (selection === 'No pKa'){
+                document.getElementById("output").innerHTML = "Correct";
+            }
+            else{
+                document.getElementById("output").innerHTML = "Incorrect";  
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>
