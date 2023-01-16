@@ -5,6 +5,21 @@
     <h1>pKa Practice</h1>
     <p>How would the pKa of <span id="first"></span> change if it was next to <span id="second"></span> in an enzyme
         active site?</p>
+<br>
+<div style="display:flex; flex-direction: row; flex-wrap: wrap;">
+<figure style="width:fit-content">
+    <img id="firstAAimage" src="" alt="" style="width:20vw;" >
+<figcaption id="firstAAimageCaption" style="text-align:center"></figcaption>
+</figure>
+
+<figure style="width:fit-content">
+    <img id="secondAAimage" src="" alt="" style="width:20vw;">
+<figcaption id="secondAAimageCaption" style="text-align:center"></figcaption>
+</figure>
+</div>
+        
+        <br>
+        <br>
 
     <form>
         <input type="button" id="increase" name="answer" value="Increase">
@@ -22,7 +37,7 @@
 
     <script>
         const aminoArrayPos = ['arginine', 'lysine', 'histidine'];
-        const aminoArrayNeg = ['aspartate', 'glutamate'];
+        const aminoArrayNeg = ['aspartatic acid', 'glutamic acid'];
         const aminoArrayPhob = ['valine', 'leucine', 'isoleucine'];
         const sumArray = [aminoArrayPos, aminoArrayNeg, aminoArrayPhob];
         //Select first amino acid and insert into text
@@ -33,8 +48,17 @@
         randomArray = sumArray[Math.floor(Math.random() * sumArray.length)];
         let randomAA2 = randomArray[Math.floor(Math.random() * randomArray.length)];
         document.getElementById("second").innerHTML = randomAA2;
+        //Insert structure of first amino acid side chain with a label
+        let AAimage1 = randomAA1+'.jpg';
+        document.getElementById("firstAAimage").src = AAimage1;
+        document.getElementById("firstAAimageCaption").innerHTML = randomAA1;
+        //document.getElementById("firstAAimage").setAttribute("alt", randomAA1);
+        //Insert structure of second amino acid side chain with a label
+        let AAimage2 = randomAA2+'.jpg';
+        document.getElementById("secondAAimage").src = AAimage2;
+        document.getElementById("secondAAimageCaption").innerHTML = randomAA2;
 
-        //Get input from radio buttons
+        //Get input from buttons
         if (document.querySelectorAll('input[name="answer"]')) {
             document.querySelectorAll('input[name="answer"]').forEach((elem) => {
                 elem.addEventListener("click", function (event) {
